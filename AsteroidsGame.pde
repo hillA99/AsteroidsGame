@@ -43,3 +43,4 @@ public void keyPressed()
    bob.hyperspace(); //OK!
   }
 }
+

@@ -1,31 +1,19 @@
-Star[] spaceBoi = new Star[200];
+Star[] spaceBoi = new Star[200];//your variable declarations here
 Spaceship bob = new Spaceship();
-ArrayList <Asteroid> rocks = new ArrayList <Asteroid>();
-
-public void setup()
+public void setup() 
 {
   size(800, 800);
-  for (int i = 0; i < spaceBoi.length; i++) {
+  for (int i = 0; i < spaceBoi.length; i++)
+  {
     spaceBoi[i] = new Star();
   }
-  for (int i = 0; i < 20; i++) {
-    rocks.add (new Asteroid());
-  }
 }
-public void draw()
+public void draw() 
 {
   background(0);
   for (int i = 0; i < spaceBoi.length; i++)
   {
     spaceBoi[i].show();
-  }
-  for (int i = 0; i < rocks.size(); i++) {
-    rocks.get(i).move();
-    rocks.get(i).show();
-    float myDist = dist((float)rocks.get(i).getX(), (float)rocks.get(i).getY(), (float)bob.getX(), (float)bob.getY());
-    if (myDist < 30) {
-      rocks.remove(i);
-    }
   }
   bob.move();
   bob.show();
@@ -33,28 +21,25 @@ public void draw()
 
 public void keyPressed()
 {
-  if (key == 'w')
+  if(key == 'w')
   {
-    bob.accelerate(0.3);
+    bob.accelerate(0.5);
   }
-  if (key == 'd')
+  if(key == 'd')
   {
     bob.turn(8.0);
   }
-  if (key == 'a')
+  if(key == 'a')
   {
     bob.turn(-8.0);
   }
-  if (key == 's')
+  if(key == 's')
   {
-    bob.accelerate(-0.3);
+    bob.accelerate(-0.5);
   }
-
-  if (key == 'h')
+  
+  if(key == 'h')
   {
-    bob.hyperspace(); //OK!
+   bob.hyperspace(); //OK!
   }
 }
-
-
-

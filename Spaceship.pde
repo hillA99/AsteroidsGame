@@ -1,34 +1,72 @@
-//SPACESHIP
-class Spaceship extends Floater {
-  public Spaceship() {
-    corners = 4;
-    xCorners = new int[]{-8, 16, -8, -2};
-    yCorners = new int[]{-8, 0, 8, 0};
-    myColor = 255;
-    myCenterX = 400;
-    myCenterY = 400;
-    myXspeed = 0;
-    myYspeed = 0;
-    myPointDirection = 0;
+Star[] ster = new Star[200];
+Spaceship falcon = new Spaceship();
+ArrayList <Bullet> shots = new ArrayList<Bullet>();
+
+ArrayList <Asteroid> rocks = new ArrayList <Asteroid>();
+
+public void setup()
+{
+  size(800, 800);
+  for (int i = 0; i < ster.length; i++) {
+    ster[i] = new Star();
+  }
+  for (int i = 0; i < 20; i++) {
+    rocks.add (new Asteroid());
+  }
+}
+public void draw()
+{
+  background(0);
+  for (int i = 0; i < ster.length; i++)
+  {
+    ster[i].show();
+  }
+  for (int i = 0; i < rocks.size(); i++) {
+    rocks.get(i).move();
+    rocks.get(i).show();
+    float myDist = dist((float)rocks.get(i).getX(), (float)rocks.get(i).getY(), (float)falcon.getX(), (float)falcon.getY());
+    if (myDist < 30) {
+      rocks.remove(i);
+    }
+    for (int j = 0; j < shots.size(); j++) {
+      shots.get(j).move();
+      shots.get(j).show();
+      float dd = dist((float)shots.get(j).getX(), (float)shots.get(j).getY(), (float)rocks.get(i).getX(), (float)rocks.get(i).getY());
+      if (dd < 50) {
+        shots.remove(j);
+        rocks.remove(i);
+        break;
+      }
+    }
+  }
+  falcon.move();
+  falcon.show();
+}
+
+public void keyPressed()
+{
+  if (key == 'w')
+  {
+    falcon.accelerate(0.3);
+  }
+  if (key == 'd')
+  {
+    falcon.turn(8.0);
+  }
+  if (key == 'a')
+  {
+    falcon.turn(-8.0);
+  }
+  if (key == 's')
+  {
+    falcon.accelerate(-0.3);
   }
 
-  public void hyperspace() {
-    myXspeed = 0;
-    myYspeed = 0;
-    myCenterX = (int)(Math.random()*800);
-    myCenterY = (int)(Math.random()*800);
-    myPointDirection = (float)(Math.random()*500);
+  if (key == 'h')
+  {
+    falcon.hyperspace();
   }
-  public void setY(int y) {
-    myCenterY = myCenterY + y;
-  }
-  public void setX(int x) {
-    myCenterX = myCenterX + x;
-  }
-  public double getY() {
-    return myCenterY;
-  }
-  public double getX() {
-    return myCenterX;
+  if (key == ' ') {
+    shots.add(new Bullet(falcon));
   }
 }

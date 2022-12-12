@@ -23,3 +23,4 @@ class Bullet extends Floater {
     return myCenterY;
   }
 }
+

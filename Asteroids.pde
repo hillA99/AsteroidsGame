@@ -1,4 +1,4 @@
-//ASTEROID
+//ASTEROIDS
 class Asteroid extends Floater
 {
   private double rotSpeed; 
@@ -25,5 +25,4 @@ class Asteroid extends Floater
     return myCenterY;
   }
 }
-
 

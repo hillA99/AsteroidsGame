@@ -1,7 +1,11 @@
-//AsteroidsGame
+//AsteroidsGame.pde
 Star[] ster = new Star[200];
 Spaceship falcon = new Spaceship();
+ArrayList <Bullet> shots = new ArrayList<Bullet>();
+
 ArrayList <Asteroid> rocks = new ArrayList <Asteroid>();
+
+boolean wPress, aPress, sPress, dPress, spacePress, hPress;
 
 public void setup()
 {
@@ -9,9 +13,10 @@ public void setup()
   for (int i = 0; i < ster.length; i++) {
     ster[i] = new Star();
   }
-  for (int i = 0; i < 20; i++) {
+  for (int i = 0; i < 30; i++) {
     rocks.add (new Asteroid());
   }
+  wPress = aPress = sPress = dPress = hPress = spacePress = false;
 }
 public void draw()
 {
@@ -27,32 +32,87 @@ public void draw()
     if (myDist < 30) {
       rocks.remove(i);
     }
+    for (int j = 0; j < shots.size(); j++) {
+      shots.get(j).move();
+      shots.get(j).show();
+      float dd = dist((float)shots.get(j).getX(), (float)shots.get(j).getY(), (float)rocks.get(i).getX(), (float)rocks.get(i).getY());
+      if (dd < 50) {
+        shots.remove(j);
+        rocks.remove(i);
+        break;
+      }
+    }
   }
+  
+  if(wPress)
+      falcon.accelerate(0.3);
+  if(aPress)
+      falcon.turn(-4.0);
+  if(dPress)
+      falcon.turn(4.0);
+  if(sPress)
+      falcon.accelerate(-0.3);
+  if(hPress)
+      falcon.hyperspace();
+  if(spacePress)
+      shots.add(new Bullet(falcon));
+    
   falcon.move();
   falcon.show();
+
 }
 
 public void keyPressed()
 {
   if (key == 'w')
   {
-    falcon.accelerate(0.3);
+    wPress = true;
   }
   if (key == 'd')
   {
-    falcon.turn(8.0);
+    dPress = true;
   }
   if (key == 'a')
   {
-    falcon.turn(-8.0);
+    aPress = true;
   }
   if (key == 's')
   {
-    falcon.accelerate(-0.3);
+    sPress = true;
   }
 
   if (key == 'h')
   {
-    falcon.hyperspace(); //OK!
+    hPress = true;
+  }
+  if (key == ' ') {
+    spacePress = true;
   }
 }
+public void keyReleased() {
+  if (key == 'w')
+  {
+    wPress = false;
+  }
+  if (key == 'd')
+  {
+    dPress = false;
+  }
+  if (key == 'a')
+  {
+    aPress = false;
+  }
+  if (key == 's')
+  {
+    sPress = false;
+  }
+
+  if (key == 'h')
+  {
+    hPress = false;
+  }
+  if (key == ' ') {
+    spacePress = false;
+  }
+}
+

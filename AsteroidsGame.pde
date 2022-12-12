@@ -1,7 +1,9 @@
 Star[] ster = new Star[200];
 Spaceship falcon = new Spaceship();
 ArrayList <Bullet> shots = new ArrayList<Bullet>();
+
 ArrayList <Asteroid> rocks = new ArrayList <Asteroid>();
+
 boolean wPress, aPress, sPress, dPress, spacePress, hPress;
 
 public void setup()

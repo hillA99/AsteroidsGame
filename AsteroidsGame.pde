@@ -1,33 +1,31 @@
-Star[] spaceBoi = new Star[200];
-Spaceship bob = new Spaceship();
+Star[] ster = new Star[200];
+Spaceship falcon = new Spaceship();
 ArrayList <Bullet> shots = new ArrayList<Bullet>();
-
 ArrayList <Asteroid> rocks = new ArrayList <Asteroid>();
-
-boolean wPress, aPress, sPress, dPress, spacePress, hPress;
+boolean wPress, aPress, sPress, dPress, kPress, hPress;
 
 public void setup()
 {
   size(800, 800);
-  for (int i = 0; i < spaceBoi.length; i++) {
-    spaceBoi[i] = new Star();
+  for (int i = 0; i < ster.length; i++) {
+    ster[i] = new Star();
   }
   for (int i = 0; i < 30; i++) {
     rocks.add (new Asteroid());
   }
-  wPress = aPress = sPress = dPress = hPress = spacePress = false;
+  wPress = aPress = sPress = dPress = hPress = kPress = false;
 }
 public void draw()
 {
   background(0);
-  for (int i = 0; i < spaceBoi.length; i++)
+  for (int i = 0; i < ster.length; i++)
   {
-    spaceBoi[i].show();
+    ster[i].show();
   }
   for (int i = 0; i < rocks.size(); i++) {
     rocks.get(i).move();
     rocks.get(i).show();
-    float myDist = dist((float)rocks.get(i).getX(), (float)rocks.get(i).getY(), (float)bob.getX(), (float)bob.getY());
+    float myDist = dist((float)rocks.get(i).getX(), (float)rocks.get(i).getY(), (float)falcon.getX(), (float)falcon.getY());
     if (myDist < 30) {
       rocks.remove(i);
     }
@@ -44,20 +42,20 @@ public void draw()
   }
   
   if(wPress)
-      bob.accelerate(0.3);
+      falcon.accelerate(0.3);
   if(aPress)
-      bob.turn(-4.0);
+      falcon.turn(-4.0);
   if(dPress)
-      bob.turn(4.0);
+      falcon.turn(4.0);
   if(sPress)
-      bob.accelerate(-0.3);
+      falcon.accelerate(-0.3);
   if(hPress)
-      bob.hyperspace();
-  if(spacePress)
-      shots.add(new Bullet(bob));
+      falcon.hyperspace();
+  if(kPress)
+      shots.add(new Bullet(falcon));
     
-  bob.move();
-  bob.show();
+  falcon.move();
+  falcon.show();
 
 }
 
@@ -84,8 +82,8 @@ public void keyPressed()
   {
     hPress = true;
   }
-  if (key == ' ') {
-    spacePress = true;
+  if (key == 'k') {
+    kPress = true;
   }
 }
 public void keyReleased() {
@@ -110,8 +108,9 @@ public void keyReleased() {
   {
     hPress = false;
   }
-  if (key == ' ') {
-    spacePress = false;
+  if (key == 'k') {
+    kPress = false;
   }
 }
+
 

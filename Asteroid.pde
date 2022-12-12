@@ -1,28 +1,58 @@
-//ASTEROIDS
-class Asteroid extends Floater
+Star[] spaceBoi = new Star[200];
+Spaceship bob = new Spaceship();
+ArrayList <Asteroid> rocks = new ArrayList <Asteroid>();
+
+public void setup()
 {
-  private double rotSpeed; 
-  public Asteroid() {
-    corners = 6;
-    xCorners = new int[]{-11, 7, 12, 6, -11, -15}; 
-    yCorners = new int[]{-8, -8, 0, 10, 8, 0};
-    myColor = color(79, 91, 102);
-    myCenterX = (int)(Math.random()*800);
-    myCenterY = (int)(Math.random()*800);
-    myXspeed = (int)(Math.random()*5)-3;
-    myYspeed = (int)(Math.random()*5)-3;
-    myPointDirection = 0;
-    rotSpeed = (int)(Math.random()*7);
+  size(800, 800);
+  for (int i = 0; i < spaceBoi.length; i++){
+    spaceBoi[i] = new Star();
   }
-  public void move() { 
-    turn (rotSpeed);
-    super.move();
+  for (int i = 0; i < 20; i++){
+    rocks.add (new Asteroid());
   }
-  public double getX() {
-    return myCenterX;
+}
+public void draw()
+{
+  background(0);
+  for (int i = 0; i < spaceBoi.length; i++)
+  {
+    spaceBoi[i].show();
   }
-  public double getY() {
-    return myCenterY;
+  for (int i = 0; i < rocks.size(); i++){
+    rocks.get(i).move();
+    rocks.get(i).show();
+    float myDist = dist((float)rocks.get(i).getX(), (float)rocks.get(i).getY(), (float)bob.getX(), (float)bob.getY());
+    if (myDist < 30){
+      rocks.remove(i);
+    }
+  }
+  bob.move();
+  bob.show();
+}
+
+public void keyPressed()
+{
+  if (key == 'w')
+  {
+    bob.accelerate(0.3);
+  }
+  if (key == 'd')
+  {
+    bob.turn(8.0);
+  }
+  if (key == 'a')
+  {
+    bob.turn(-8.0);
+  }
+  if (key == 's')
+  {
+    bob.accelerate(-0.3);
+  }
+
+  if (key == 'h')
+  {
+    bob.hyperspace(); //OK!
   }
 }
 

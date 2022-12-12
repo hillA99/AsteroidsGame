@@ -1,10 +1,8 @@
 Star[] ster = new Star[200];
 Spaceship falcon = new Spaceship();
 ArrayList <Bullet> shots = new ArrayList<Bullet>();
-
 ArrayList <Asteroid> rocks = new ArrayList <Asteroid>();
-
-boolean wPress, aPress, sPress, dPress, spacePress, hPress;
+boolean wPress, aPress, sPress, dPress, kPress, hPress;
 
 public void setup()
 {
@@ -15,7 +13,7 @@ public void setup()
   for (int i = 0; i < 30; i++) {
     rocks.add (new Asteroid());
   }
-  wPress = aPress = sPress = dPress = hPress = spacePress = false;
+  wPress = aPress = sPress = dPress = hPress = kPress = false;
 }
 public void draw()
 {
@@ -53,7 +51,7 @@ public void draw()
       falcon.accelerate(-0.3);
   if(hPress)
       falcon.hyperspace();
-  if(spacePress)
+  if(kPress)
       shots.add(new Bullet(falcon));
     
   falcon.move();
@@ -84,8 +82,8 @@ public void keyPressed()
   {
     hPress = true;
   }
-  if (key == ' ') {
-    spacePress = true;
+  if (key == 'k') {
+    kPress = true;
   }
 }
 public void keyReleased() {
@@ -110,7 +108,9 @@ public void keyReleased() {
   {
     hPress = false;
   }
-  if (key == ' ') {
-    spacePress = false;
+  if (key == 'k') {
+    kPress = false;
   }
 }
+
+
